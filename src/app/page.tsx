@@ -1,7 +1,10 @@
-import React from "react";
-
-const page = () => {
-  return <div></div>;
+import { axiosInstance } from "@/lib/axios-instance";
+const getPopularMovies = async () => {
+  const { data } = await axiosInstance("/movie/popular?language=en-US&page=1");
+  return data;
 };
 
-export default page;
+const Home = async () => {
+  return <div></div>;
+};
+export default Home;

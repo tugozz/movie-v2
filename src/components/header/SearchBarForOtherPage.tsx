@@ -14,8 +14,8 @@ export const SearchBarForOtherPage = () => {
   };
 
   return (
-    <div className="flex items-center flex-1 md:flex-0 gap-x-3">
-      <div className="hidden lg:flex">
+    <div className="flex items-center  flex-1 md:flex-0 gap-x-3">
+      <div className="hidden lg:flex gap-x-3">
         <Genre />
 
         <SearchInputForOtherPage />
