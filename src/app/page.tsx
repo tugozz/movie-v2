@@ -1,3 +1,4 @@
+import { ImageNowplaying } from "@/components/carausel/ImageNowplaying";
 import { axiosInstance } from "@/lib/axios-instance";
 const getPopularMovies = async () => {
   const { data } = await axiosInstance("/movie/popular?language=en-US&page=1");
@@ -5,6 +6,10 @@ const getPopularMovies = async () => {
 };
 
 const Home = async () => {
-  return <div></div>;
+  return (
+    <div>
+      <ImageNowplaying />
+    </div>
+  );
 };
 export default Home;

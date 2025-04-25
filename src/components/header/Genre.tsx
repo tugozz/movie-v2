@@ -6,10 +6,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { Badge, ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 type GenreType = {
   id: number;
@@ -39,9 +39,28 @@ export const Genre = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="flex flex-col w-[335px] md:w-[557px] border-[#e4e4e7] bg-white mx-5 p-5">
         <DropdownMenuLabel className="text-2xl">Genre</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-[rgba(9,9,11,1)] font-normal text-base">
+          Select a genre to filter movies
+        </DropdownMenuLabel>
+        <hr className="border-t border-gray-300 my-4" />
 
-        <DropdownMenuSeparator />
-        <div className="border w-fit"></div>
+        {isLoading ? (
+          <p>Loading genres...</p>
+        ) : (
+          <div className="flex flex-wrap gap-1">
+            {genres.map(({ name, id }) => (
+              <DropdownMenuItem key={id} className="flex gap-[16px]">
+                <Badge
+                  fontVariant="outline"
+                  className="bg-white text-[rgba(0,0,0,1)] text-[12px] font-semibold rounded-full border-[#e4e4e7] items-center flex-wrap flex"
+                >
+                  {name}
+                  <ChevronRight />
+                </Badge>
+              </DropdownMenuItem>
+            ))}
+          </div>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

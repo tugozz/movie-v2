@@ -21,7 +21,10 @@ export const SearchBarForOtherPage = () => {
         <SearchInputForOtherPage />
       </div>
 
-      <Button className="flex md:hidden ml-auto onclick={handleSearchButtonClick}">
+      <Button
+        className="flex md:hidden ml-auto"
+        onClick={handleSearchButtonClick}
+      >
         <Search />
       </Button>
 
