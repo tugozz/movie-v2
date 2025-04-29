@@ -14,7 +14,7 @@ export const SearchBarForOtherPage = () => {
   };
 
   return (
-    <div className="flex items-center  flex-1 md:flex-0 gap-x-3">
+    <div className="flex items-center  flex-1 md:flex-0 gap-x-3 ">
       <div className="hidden lg:flex gap-x-3">
         <Genre />
 
@@ -35,7 +35,7 @@ export const SearchBarForOtherPage = () => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute inset-x-0 flex md:hidden px-5 py-[7.5px] bg-red-300"
+            className="absolute inset-x-0 items-center flex md:hidden px-5 py-[7.5px] bg-white md:bg-black"
           >
             <Genre />
 

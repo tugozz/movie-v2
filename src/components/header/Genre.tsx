@@ -1,15 +1,15 @@
 "use client";
 
 import { useFetchDataClient } from "@/hooks/useFetchDataInClient";
-
+import { Badge } from "../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { Badge, ChevronDown, ChevronRight } from "lucide-react";
+
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 type GenreType = {
   id: number;
@@ -49,15 +49,10 @@ export const Genre = () => {
         ) : (
           <div className="flex flex-wrap gap-1">
             {genres.map(({ name, id }) => (
-              <DropdownMenuItem key={id} className="flex gap-[16px]">
-                <Badge
-                  fontVariant="outline"
-                  className="bg-white text-[rgba(0,0,0,1)] text-[12px] font-semibold rounded-full border-[#e4e4e7] items-center flex-wrap flex"
-                >
-                  {name}
-                  <ChevronRight />
-                </Badge>
-              </DropdownMenuItem>
+              <Badge className="bg-white text-[rgba(0,0,0,1)] text-[12px] font-semibold rounded-full border-[#e4e4e7] items-center flex-wrap flex">
+                {name}
+                <ChevronRight size={16} />
+              </Badge>
             ))}
           </div>
         )}
