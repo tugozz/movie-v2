@@ -5,12 +5,11 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "../ui/button";
 import { Play, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import CarouselSkeleton from "./CarouselSkeleton";
+import { MovieListSkeleton } from "@/components/carausel/CarouselSkeleton";
 
 type Nowplaying = {
   adult: boolean;
@@ -32,12 +31,12 @@ type Nowplaying = {
 export const ImageNowplaying = () => {
   const [api, setApi] = useState<any>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [next, setNext] = useState(true);
-  const [trailerKey, setTrailerKey] = useState<string | null>(null);
-
   const { data, isLoading } = useFetchDataClient(
     "/movie/now_playing?language=en-US&page=1"
   );
+  const [next, setNext] = useState(true);
+
+  const nowPlaying: Nowplaying[] = data?.results ?? [];
 
   const movies: Nowplaying[] = data?.results ?? [];
 
@@ -61,52 +60,70 @@ export const ImageNowplaying = () => {
       clearInterval(interval);
     };
   }, [api]);
-
   if (isLoading || movies.length === 0) {
-    return (
-      <div>
-        <CarouselSkeleton />
-      </div>
-    );
+    return <MovieListSkeleton />;
   }
+
+  const fetchTrailer = async (movieId: number) => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${process.env.TMDB_KEY}`
+    );
+    const data = await response.json();
+  };
 
   return (
     <div>
-      <Carousel setApi={setApi}>
-        {" "}
+      <Carousel setApi={setApi} opts={{ loop: true }}>
         <CarouselContent>
-          {movies.map((movie: Nowplaying) => (
-            <CarouselItem key={movie.id} className="md:relative">
+          {nowPlaying.map((movie: Nowplaying) => (
+            <CarouselItem
+              key={movie.id}
+              className="md:relative transition:transform 0.5s ease-in-out"
+            >
               <img
-                src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                className="w-full  md:h-[700px] md:w-full bg-cover shrink-0"
+                src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
                 alt={movie.title}
-                className="w-full md:h-[700px] md:w-full bg-cover shrink-0"
               />
-              <div className="md:h-100 md:text-white md:absolute flex flex-col justify-between md:top-[160px] md:left-35 px-5 py-1 gap-4">
-                <h1 className="md:text-xl">Now Playing:</h1>
-                <div className="flex md:block items-center justify-between">
-                  <h1 className="text-3xl md:text-6xl">{movie.title}</h1>
-                  <h1 className="flex gap-2 md:text-xl md:pt-4">
+              <div className="md:h-100 md:text-white  md:absolute flex flex-col justify-between md:top-[160px] md:left-35 px-5 py-1 gap-4">
+                <h1 className="text: md:text-xl">Now Playing:</h1>
+                <div className="flex md:block items-center justify-between ">
+                  <h1 className="text-3xl md:text-6xl ">{movie.title}</h1>
+                  <h1 className="flex gap-2  md:text-xl md:pt-4">
                     <Star className="text-amber-300" />
                     {movie.vote_average.toFixed(1)}/10
                   </h1>
                 </div>
-                <h6 className="md:w-[500px]">
-                  {movie.overview}
-                  <Button
-                    variant="outline"
-                    className="mt-4 h-10 bg-black text-white w-[145px] md:bg-white rounded-md md:text-black"
-                  >
-                    <Play />
-                    Watch Trailer
-                  </Button>
-                </h6>
+                <h6 className="md:w-[500px]">{movie.overview}</h6>
+                <Button
+                  variant="outline"
+                  onClick={() => fetchTrailer(movie.id)}
+                  className=" w-[145px] md:w-36 h-10 rounded-md bg-black text-white md:bg-white  md:text-black "
+                >
+                  <Play />
+                  watch trailer
+                </Button>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
       </Carousel>
+
+      <div className="absolute bottom-150 md:bottom-100 left-0 right-0 flex justify-center gap-2">
+        {nowPlaying.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              api?.scrollTo(index);
+            }}
+            className={`w-1 h-1 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
+              index === selectedIndex
+                ? "bg-white scale-155 shadow-lg "
+                : "bg-gray-500 opacity-60"
+            }`}
+          ></button>
+        ))}
+      </div>
     </div>
   );
 };

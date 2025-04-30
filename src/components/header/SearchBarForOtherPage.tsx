@@ -5,6 +5,7 @@ import { searchBarAnimationVariants } from "@/constants/search-bar-input-animati
 import { useState } from "react";
 import { Search, X } from "lucide-react";
 import { Button } from "../ui/button";
+import { SearchBarForPage } from "./SearchBarForPage";
 
 export const SearchBarForOtherPage = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -35,7 +36,7 @@ export const SearchBarForOtherPage = () => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute inset-x-0 items-center flex md:hidden px-5 py-[7.5px] bg-white md:bg-black"
+            className="absolute inset-x-0 items-center flex md:hidden px-5 py-[7.5px] bg-white "
           >
             <Genre />
 

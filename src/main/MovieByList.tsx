@@ -14,7 +14,7 @@ export const MovieByList = ({ movieType }: Movie) => {
   const movies = data?.results ?? [];
 
   if (movies.length === 0) {
-    return <div>Loading...</div>;
+    return;
   }
 
   return (
