@@ -2,6 +2,7 @@
 
 import { MovieImage } from "../common/MovieImage";
 import { SearchBarForOtherPage } from "./SearchBarForOtherPage";
+import { SearchInputForOtherPage } from "./SearchInputForOtherPage";
 import { ThemeSwitch } from "./ThemeSwitch";
 import { usePathname } from "next/navigation";
 
@@ -15,7 +16,7 @@ export const HeaderContainer = () => {
       </h1>
 
       {pathname === "/search" ? (
-        <SearchBarForPage />
+        <SearchInputForOtherPage />
       ) : (
         <SearchBarForOtherPage />
       )}

@@ -5,7 +5,6 @@ import { searchBarAnimationVariants } from "@/constants/search-bar-input-animati
 import { useState } from "react";
 import { Search, X } from "lucide-react";
 import { Button } from "../ui/button";
-import { SearchBarForPage } from "./SearchBarForPage";
 
 export const SearchBarForOtherPage = () => {
   const [showSearch, setShowSearch] = useState(false);
