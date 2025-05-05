@@ -14,8 +14,12 @@ export const MovieByList = ({ movieType }: Movie) => {
   const movies = data?.results ?? [];
 
   if (movies.length === 0) {
-    return;
+    return null;
   }
+
+  const handleMovieClick = (movieId: number, movieTitle: string) => {
+    window.location.href = `/movie/${movieId}`;
+  };
 
   return (
     <div className="px-4 md:px-10 lg:px-20 py-20">
@@ -23,7 +27,7 @@ export const MovieByList = ({ movieType }: Movie) => {
         {movieType.replace("_", " ")}
       </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 bg-amber-400">
         {movies.slice(0, 10).map((movie: any) => (
           <div
             key={movie.id}
@@ -32,9 +36,10 @@ export const MovieByList = ({ movieType }: Movie) => {
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
-              className="w-full h-[400px] object-cover"
+              onClick={() => handleMovieClick(movie.id, movie.title)}
+              className="w-full h-[400px] object-cover cursor-pointer"
             />
-            <div className="p-2 bg-white dark:bg-gray-800">
+            <div className="p-2 bg-white dark:bg-gray-600">
               <h3 className="text-md font-bold text-center mb-2 truncate text-black dark:text-white">
                 {movie.title}
               </h3>

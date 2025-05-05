@@ -66,15 +66,15 @@ export const SearchInputForOtherPage = () => {
       {isLoading ? (
         <p className="mt-2">Loading...</p>
       ) : (
-        <ul className="mt-4">
+        <ul className="mt-4 absolute flex z-10 flex-col bg-white w-full ">
           {movies.slice(0, 5).length > 0
             ? movies.slice(0, 5).map((movie) => (
                 <li key={movie.id} className="mb-4">
-                  <h3 className="font-bold">{movie.title}</h3>
+                  <h3 className="font-bold ">{movie.title}</h3>
                   <img
                     src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                     alt={movie.title}
-                    className="rounded-lg shadow-md"
+                    className="rounded-lg z-50  w-[67px] shadow-md"
                   />
                 </li>
               ))

@@ -13,15 +13,14 @@ const SearchMovies = () => {
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      if (!searchValue) {
-        setMovies([]);
-        return;
-      }
+    if (!searchValue.trim()) {
+      setMovies([]);
+      return;
+    }
 
+    const fetchMovies = async () => {
       setIsLoading(true);
       setError(null);
 
@@ -32,14 +31,12 @@ const SearchMovies = () => {
             params: {
               api_key: "107e41d2d63214211d351668fdc8c52c",
               query: searchValue,
-              page,
               language: "en-US",
             },
           }
         );
-        console.log("API Response:", response.data);
         setMovies(response.data.results);
-      } catch (err) {
+      } catch {
         setError("Failed to fetch movies.");
       } finally {
         setIsLoading(false);
@@ -47,10 +44,10 @@ const SearchMovies = () => {
     };
 
     fetchMovies();
-  }, [searchValue, page]);
+  }, [searchValue]);
 
   return (
-    <div className="absolute">
+    <div>
       <h1>Search for Movies</h1>
       <input
         type="text"
@@ -61,20 +58,16 @@ const SearchMovies = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       {isLoading ? (
         <p>Loading...</p>
-      ) : movies.length > 0 ? (
-        <ul>
-          {movies.map((movie) => (
-            <li key={movie.id}>
-              <h3>{movie.title}</h3>
-              <img
-                src={`https://image.tmdb.org/t/p/w57${movie.poster_path}`}
-                alt={movie.title}
-              />
-            </li>
-          ))}
-        </ul>
       ) : (
-        searchValue && <p>No movies found.</p>
+        <ul>
+          {movies.length > 0
+            ? movies.map((movie) => (
+                <li key={movie.id}>
+                  <h3>{movie.title}</h3>
+                </li>
+              ))
+            : searchValue && <p>No movies found.</p>}
+        </ul>
       )}
     </div>
   );
