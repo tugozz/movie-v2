@@ -1,6 +1,7 @@
 "use client";
 
 import { useFetchDataClient } from "@/hooks/useFetchDataInClient";
+import { ArrowRight, Star } from "lucide-react";
 
 type Movie = {
   movieType: "upcoming" | "popular" | "top_rated";
@@ -23,11 +24,15 @@ export const MovieByList = ({ movieType }: Movie) => {
 
   return (
     <div className="px-4 md:px-10 lg:px-20 py-20">
-      <h2 className="text-2xl md:text-4xl font-bold mb-8 capitalize text-center">
+      <h2 className="flex text-2xl md:text-2xl  mb-8 capitalize justify-between items-start Inter  ">
         {movieType.replace("_", " ")}
+        <h2 className="flex text-[14px] justify-center items-center gap-2">
+          See more
+          <ArrowRight />
+        </h2>
       </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 bg-amber-400">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 ">
         {movies.slice(0, 10).map((movie: any) => (
           <div
             key={movie.id}
@@ -39,13 +44,14 @@ export const MovieByList = ({ movieType }: Movie) => {
               onClick={() => handleMovieClick(movie.id, movie.title)}
               className="w-full h-[400px] object-cover cursor-pointer"
             />
-            <div className="p-2 bg-white dark:bg-gray-600">
-              <h3 className="text-md font-bold text-center mb-2 truncate text-black dark:text-white">
+            <div className="p-2 bg-white dark:bg-[#f4f4f5]">
+              <h1 className="flex gap-2 md:text-xl md:pt-4">
+                <Star className="text-amber-300" />
+                {movie.vote_average.toFixed(1)}/10
+              </h1>
+              <h3 className="text-md font-bold text-center mb-2 truncate text-black dark:[#09090B]">
                 {movie.title}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                {movie.release_date}
-              </p>
             </div>
           </div>
         ))}

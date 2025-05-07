@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import axios from "axios";
 import { ImageNowplaying } from "../carausel/ImageNowplaying";
+import { Arrow } from "@radix-ui/react-dropdown-menu";
 
 type MovieType = {
   id: number;
@@ -69,13 +70,19 @@ export const SearchInputForOtherPage = () => {
         <ul className="mt-4 absolute flex z-10 flex-col bg-white w-full ">
           {movies.slice(0, 5).length > 0
             ? movies.slice(0, 5).map((movie) => (
-                <li key={movie.id} className="mb-4">
-                  <h3 className="font-bold ">{movie.title}</h3>
+                <li key={movie.id} className="mb-4 flex  flex-start gap-x-4">
                   <img
                     src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                     alt={movie.title}
                     className="rounded-lg z-50  w-[67px] shadow-md"
                   />
+                  <h3 className="font-bold ">
+                    {movie.title}
+                    <h2 className="flex justify-between flex-start self-stretch text-[14px] ">
+                      See more
+                      <ArrowRight />
+                    </h2>
+                  </h3>
                 </li>
               ))
             : searchValue && <p className="mt-2">No movies found.</p>}
