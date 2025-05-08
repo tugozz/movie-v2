@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search } from "lucide-react";
 import axios from "axios";
-import { ImageNowplaying } from "../carausel/ImageNowplaying";
-import { Arrow } from "@radix-ui/react-dropdown-menu";
 
 type MovieType = {
   id: number;
